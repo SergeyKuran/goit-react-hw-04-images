@@ -3,6 +3,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import css from './Searchbar.module.css';
+import Notiflix from 'notiflix';
 
 const Searchbar = ({ onFormSubmitApp }) => {
   const [searchText, setSearchText] = useState('');
@@ -16,7 +17,7 @@ const Searchbar = ({ onFormSubmitApp }) => {
     evt.preventDefault();
 
     if (searchText.trim() === '') {
-      alert('Please enter text from search images and photos');
+      Notiflix.Notify.info('Please enter text from search images and photos');
       return;
     }
 

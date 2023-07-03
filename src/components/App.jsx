@@ -7,6 +7,7 @@ import Button from './Button';
 import Loader from './Loader';
 
 import css from './App.module.css';
+import Notiflix from 'notiflix';
 
 export const Context = React.createContext();
 
@@ -21,6 +22,7 @@ const App = () => {
     if (searchText === '') {
       return;
     }
+
     const BASE_URl = 'https://pixabay.com/api/';
     const API_KEY = '16104754-fccb05fa4a4190bcc2750c19f';
 
@@ -36,6 +38,12 @@ const App = () => {
         return Promise.reject(new Error());
       })
       .then(({ total, hits }) => {
+        if (hits.length === 0) {
+          Notiflix.Notify.failure(
+            'Opps, no images for search! Try again please'
+          );
+          return;
+        }
         setImages(prev => {
           return [...prev, ...hits];
         });
